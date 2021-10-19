@@ -6,6 +6,8 @@
 <script>
 export default {
   name: 'Header',
+  components: {
+  },
   props: {
     msg: String
   }

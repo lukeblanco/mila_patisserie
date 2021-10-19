@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-5xl m-auto" id="app">
+  <div class="max-w-5xl mx-auto mt-5" id="app">
     <Header/>
     <Home/>
   </div>

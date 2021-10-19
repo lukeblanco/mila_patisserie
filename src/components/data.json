@@ -1,11 +1,13 @@
 [
     {
         "name": "Torta",
+        "description":"Base oreo con crema",
         "price": 500
     },
     {
         
         "name": "Tortita",
+        "description":"Tarta de frutillas",
         "price": 500
     }
 ]

@@ -1,23 +1,19 @@
 <template>
-  <div class="max-w-5xl mx-auto mt-5" id="app">
-    <Header/>
-    <Home/>
+  <div id="app" class="xl:max-w-7xl mx-auto mt-5">
+    <Header />
+    <router-link to="/" />
   </div>
 </template>
-
 <script>
-import Header from './components/Header.vue'
-import Home from './components/Home.vue'
+import Header from "./components/Header.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    Home
-  }
-}
+  },
+};
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -11,12 +11,15 @@
         <div class="text-center bg-red-400 text-white">
           <button>Comprar</button>
         </div>
+        <AddProduct :product="producto" />
       </div>
     </div>
   </div>
 </template>
-
 <script>
+
+import AddProduct from "../components/addProduct.vue";
+
 export default {
   name: "Home",
   data() {
@@ -32,6 +35,9 @@ export default {
       .then((data) => (this.productos = data))
       .catch((err) => console.log(err.message));
     console.log(this.productos);
+  },
+  components:{
+    AddProduct
   },
 };
 </script>

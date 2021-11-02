@@ -6,18 +6,16 @@
     <div class="grid grid-cols-4 gap-5">
       <div v-for="producto in productos" :key="producto.name">
         <h2 class="font-bold mb-1">{{ producto.name }}</h2>
-        <p class="italic">{{ producto.description }}</p>
-        <p class="text-purple-600 text-right">${{ producto.price }}</p>
-        <div class="text-center bg-red-400 text-white">
-          <button>Comprar</button>
+        <div class="grid grid-cols-6">
+          <p class="italic col-span-5">{{ producto.description }}</p>
+          <p class="text-purple-600 text-right">${{ producto.price }}</p>
         </div>
-        <AddProduct :product="producto" />
+        <AddProduct :product="producto" button="Comprar" />
       </div>
     </div>
   </div>
 </template>
 <script>
-
 import AddProduct from "../components/addProduct.vue";
 
 export default {
@@ -28,16 +26,16 @@ export default {
     };
   },
   mounted() {
-    fetch("https://61774b8c9c328300175f58a1.mockapi.io/api/Productos",{
-      method:'GET'
+    fetch("https://61774b8c9c328300175f58a1.mockapi.io/api/Productos", {
+      method: "GET",
     })
       .then((res) => res.json())
       .then((data) => (this.productos = data))
       .catch((err) => console.log(err.message));
     console.log(this.productos);
   },
-  components:{
-    AddProduct
+  components: {
+    AddProduct,
   },
 };
 </script>

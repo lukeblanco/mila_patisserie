@@ -16,7 +16,11 @@ state:{
      eliminar:(state, product) => {
         state.cartProducts = state.cartProducts.filter(item => item.name != product.name)
         console.log("state",state)
-     }
+     },
+     empty:(state) => {
+      state.cartProducts =  [],
+      console.log("state",state)
+   }
  },
  actions:{
     agregar: ({ commit }, product) => {
@@ -24,6 +28,9 @@ state:{
       },
     eliminar: ({ commit }, product) => {
         commit("eliminar", product);
+      },
+    empty: ({ commit }) => {
+        commit("empty");
       },
  },
  getters:{

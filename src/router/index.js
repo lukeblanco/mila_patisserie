@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Carrito from '../views/Carrito'
 import Login from '../views/Login'
+import OrderList from '../views/OrderList'
+import OrderProductsList from '../views/OrderProductsList'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,17 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/order-list',
+    name: 'Order List',
+    component: OrderList
+  },
+  {
+    path: '/order-product-list',
+    name: 'Order Product List',
+    component: OrderProductsList,
+    props: true
   }
 ]
 

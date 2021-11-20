@@ -1,30 +1,21 @@
 <template>
   <div>
     <button
-      type="button"
-      class="btn btn-secondary btn-lg btn-block"
       @click="agregar(product)"
+      class="text-center bg-red-400 text-white mt-5 w-full"
     >
-      Agregar al Carrito
+      {{ button }}
     </button>
   </div>
 </template>
 
 <script>
-
 export default {
-  props: ['product'],
+  props: ["product", "button"],
   methods: {
     agregar() {
-      this.$store.dispatch("agregar", this.product);
+      this.$store.dispatch("agregar", {product: this.product, quantity: 1, total: 0});
     },
   },
 };
 </script>
-
-<style scoped>
-div {
-  background-color: #9ae6b5;
-  height: 400px;
-}
-</style>

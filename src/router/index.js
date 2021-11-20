@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 import Carrito from '../views/Carrito'
 import Login from '../views/Login'
 import FinishBuy from '../views/FinishBuy'
+import Admin from '../views/Admin'
+import newUser from '../views/NewUser'
+
 
 Vue.use(VueRouter)
 
@@ -27,6 +30,16 @@ const routes = [
     path: '/finishBuy',
     name: 'FinishBuy',
     component: FinishBuy
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
+  },
+  {
+    path: '/newuser',
+    name: 'newUser',
+    component: newUser
   }
 ]
 

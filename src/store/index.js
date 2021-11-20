@@ -48,7 +48,7 @@ export default new Vuex.Store({
       }
       console.log("state", state.cartProducts.quantity);
     },
-    eliminarTodo: (state) => {
+    vaciar: (state) => {
       state.cartProducts = []
       state.contador = 0
       state.total = 0
@@ -62,8 +62,8 @@ export default new Vuex.Store({
     eliminar: ({ commit }, product) => {
       commit("eliminar", product);
     },
-    eliminarTodo: ({ commit }) => {
-      commit("eliminarTodo");
+    vaciar: ({ commit }) => {
+      commit("vaciar");
     },
   },
   getters: {

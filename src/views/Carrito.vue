@@ -45,7 +45,7 @@
           </p>
         </div>
         <button
-          @click="eliminarTodo()"
+          @click="buyProducts(item.products)"
           class="col-start-11 col-span-2 py-4 my-4 bg-red-300 hover:bg-red-500"
         >
           <router-link
@@ -72,16 +72,35 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 import DeleteProduct from "../components/deleteProduct.vue";
 export default {
+  data() {
+    return {
+      wasBuyed: null,
+    };
+  },
   computed: {
     ...mapGetters({ items: "getCartProducts" }),
     ...mapGetters({ total: "getTotal" }),
   },
   methods: {
-    eliminarTodo() {
-      this.$store.dispatch("eliminarTodo");
-    },
+    buyProducts: async function(products) {
+        console.log("hola")
+        try{
+        const purchaseData = {
+          products: products,
+          userId: Math.random()*100
+        } 
+        const purchase = await axios.post("https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",purchaseData)
+        console.log(purchase,"purchase");
+        this.$store.dispatch("vaciar");
+        this.wasBuyed = true;
+        }
+        catch(err){
+          console.log(err)
+        }
+      }
   },
   components: {
     DeleteProduct,

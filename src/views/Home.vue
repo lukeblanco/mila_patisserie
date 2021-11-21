@@ -3,14 +3,22 @@
     <Header />
     <h1 class="text-4xl text-center">Productos</h1>
     <div class="mt-1 w-40 m-auto border border-red-500 mb-10" />
-    <div class="grid grid-cols-4 gap-5">
+    <div class="grid grid-cols-4 gap-5 mb-2">
       <div v-for="producto in productos" :key="producto.name">
-        <h2 class="font-bold mb-1">{{ producto.name }}</h2>
-        <div class="grid grid-cols-6">
-          <p class="italic col-span-5">{{ producto.description }}</p>
-          <p class="text-purple-600 text-right">${{ producto.price }}</p>
+        <div v-if="producto.visible">
+          <img
+            :src="require(`../../public/img-products/${producto.img}.jpg`)"
+            class="mb-1 h-80 mx-auto"
+          />
+          <div class="grid grid-cols-6">
+            <h2 class="font-bold mb-1 col-span-5">{{ producto.name }}</h2>
+            <p class="text-purple-800 text-right font-bold">
+              ${{ producto.price }}
+            </p>
+          </div>
+          <p class="italic h-16">{{ producto.description }}</p>
+          <AddProduct :product="producto" button="Añadir al carrito" />
         </div>
-        <AddProduct :product="producto" button="Comprar" />
       </div>
     </div>
   </div>
@@ -22,7 +30,7 @@ export default {
   name: "Home",
   data() {
     return {
-      productos: [],
+      productos: []
     };
   },
   mounted() {
@@ -30,9 +38,14 @@ export default {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data) => (this.productos = data))
+      .then((data) => {
+        data.map((item) => {
+          if (item.visible) {
+            this.productos.push(item);
+          }
+        });
+      })
       .catch((err) => console.log(err.message));
-    console.log(this.productos);
   },
   components: {
     AddProduct,

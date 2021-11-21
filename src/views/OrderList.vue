@@ -45,7 +45,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm text-gray-900">Ver lista de productos</div>
                         <button @click="viewList(order.products)"> ver </button>
-                        <div class="text-sm text-gray-500">Cantidad: {{order.products.length}}</div>
+                        <div  v-if="order.products.length" class="text-sm text-gray-500">Cantidad: {{order.products.length}}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

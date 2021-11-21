@@ -72,34 +72,25 @@
 <script>
 
     export default {
+    name:"orderlist",
     data() {
-    return {
-      orderList: [],
-    };
-     },
-    computed: {
+      return {
+        orderList: [],
+      };
     },
     mounted() {
-      this.orderList = this.getOrderList()
-        console.log(  this.orderList,"order list")
-    },
-    methods:{
-    getOrderList: async function() {
         fetch("https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",{
-      method:'GET'
+          method:'GET'
       })
       .then((res) => res.json())
       .then((data) => (this.orderList = data))
       .catch((err) => console.log(err.message));
-      console.log(this.orderList);
-
-      },
+      console.log(this.orderList, "order list 2");
+    },
+    methods:{
       viewList: function(products){
         this.$router.push({name:"Order Product List",params:{data: products}})
       }
-    },
-      components:{
-    
     },
     };
 </script>

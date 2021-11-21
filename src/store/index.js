@@ -7,6 +7,7 @@ export default new Vuex.Store({
 state:{
     cartProducts: [], 
     contador: 0,
+    caca: 3,
 },
  mutations:{
      agregar:(state, product) => {
@@ -36,6 +37,9 @@ state:{
  getters:{
     getCartProducts: (state) => {
         return state.cartProducts;
+      },
+    getCaca: (state) => {
+        return state.caca;
       },
  }
 });

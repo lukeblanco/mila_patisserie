@@ -5,6 +5,7 @@ import Carrito from '../views/Carrito'
 import Login from '../views/Login'
 import OrderList from '../views/OrderList'
 import OrderProductsList from '../views/OrderProductsList'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,7 @@ const routes = [
   {
     path: '/order-list',
     name: 'Order List',
+    beforeEnter: checkAdminRights,
     component: OrderList
   },
   {
@@ -42,5 +44,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+function checkAdminRights() {
+  console.log("hola")
+  console.log(store.getters.getCaca,"caca")
+}
 
 export default router

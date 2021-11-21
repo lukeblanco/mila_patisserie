@@ -7,7 +7,7 @@
         class="animate-spin inline w-10"
       />
       <p class="inline pl-2">
-        Processing
+        Cargando...
       </p>
     </div>
     <div

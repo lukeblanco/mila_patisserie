@@ -45,7 +45,7 @@
           </p>
         </div>
         <button
-          @click="buyProducts(item.products)"
+          @click="buyProducts(items)"
           class="col-start-11 col-span-2 py-4 my-4 bg-red-300 hover:bg-red-500"
         >
           <router-link
@@ -85,22 +85,29 @@ export default {
     ...mapGetters({ total: "getTotal" }),
   },
   methods: {
-    buyProducts: async function(products) {
-        console.log("hola")
-        try{
-        const purchaseData = {
-          products: products,
-          userId: Math.random()*100
-        } 
-        const purchase = await axios.post("https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",purchaseData)
-        console.log(purchase,"purchase");
-        this.$store.dispatch("vaciar");
-        this.wasBuyed = true;
-        }
-        catch(err){
-          console.log(err)
-        }
+    buyProducts: async function(items) {
+      const products = this.getProducts(items);
+      try{
+      const purchaseData = {
+        products: products,
+        userId: Math.random()*100
       }
+      const purchase = await axios.post("https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",purchaseData)
+      console.log(purchase,"purchase");
+      this.$store.dispatch("vaciar");
+      this.wasBuyed = true;
+      }
+      catch(err){
+        console.log(err)
+      }
+    },
+    getProducts: (items) => {
+      const list = []
+      items.map((item) => {
+        return list.push(item)
+      });
+      return list
+    },
   },
   components: {
     DeleteProduct,

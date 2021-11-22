@@ -5,7 +5,13 @@ import Carrito from '../views/Carrito'
 import Login from '../views/Login'
 import OrderList from '../views/OrderList'
 import OrderProductsList from '../views/OrderProductsList'
-//import store from '../store'
+import store from '../store'
+import FinishBuy from '../views/FinishBuy'
+import Admin from '../views/Admin'
+import NewUser from '../views/NewUser'
+import ProductDashboard from '../views/ProductDashboard'
+import UserDashboard from '../views/UserDashboard'
+import NewProd from '../views/NewProduct'
 
 Vue.use(VueRouter)
 
@@ -16,6 +22,7 @@ const routes = [
     component: Home
   },
   {
+    
     path: '/carrito',
     name: 'Carrito',
     component: Carrito
@@ -26,17 +33,50 @@ const routes = [
     component: Login
   },
   {
-    path: '/order-list',
-    name: 'Order List',
-    //beforeEnter: checkAdminRights,
+    path: 'admin/order-list',
+    name: 'OrderList',
+    beforeEnter: checkAdminRights,
     component: OrderList
   },
   {
-    path: '/order-product-list',
+    path: 'admin/order-list',
     name: 'Order Product List',
     component: OrderProductsList,
+    beforeEnter: checkAdminRights,
     props: true
-  }
+  },
+  {
+    path: '/newUser',
+    name: 'NewUser',
+    component: NewUser
+  },
+  {
+    path: 'admin/order-list',
+    name: 'UserDashboard',
+    beforeEnter: checkAdminRights,
+    component: UserDashboard
+  },
+  {
+    path: 'admin/order-list',
+    name: 'ProductDashboard',
+    beforeEnter: checkAdminRights,
+    component: ProductDashboard  
+  },
+  {
+    path: '/newProd',
+    name: 'NewProd',
+    component: NewProd  
+  },
+  {
+    path: '/finishBuy',
+    name: 'FinishBuy',
+    component: FinishBuy
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
+  },
 ]
 
 const router = new VueRouter({
@@ -45,9 +85,14 @@ const router = new VueRouter({
   routes
 })
 
-// function checkAdminRights() {
-//   console.log("hola")
-//   console.log(store.getters.getCaca,"caca")
-// }
+function checkAdminRights(to, from, next) {
+   console.log(store.getters.getUser,"caca")
+   if(!store.getters.getUser?.admin){
+    next('/');
+   }
+   else {
+    next();
+   }
+}
 
 export default router

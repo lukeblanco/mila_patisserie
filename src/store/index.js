@@ -8,6 +8,7 @@ state:{
     cartProducts: [], 
     contador: 0,
     caca: 3,
+    user: null
 },
  mutations:{
      agregar:(state, product) => {
@@ -21,7 +22,12 @@ state:{
      empty:(state) => {
       state.cartProducts =  [],
       console.log("state",state)
-   }
+    },
+    addUser:(state, user) => {
+      console.log("llego al store")
+      state.user =  user,
+      console.log(state.user,"user state")
+    },
  },
  actions:{
     agregar: ({ commit }, product) => {
@@ -33,6 +39,9 @@ state:{
     empty: ({ commit }) => {
         commit("empty");
       },
+    addUser: ({ commit }, user) => {
+        commit("addUser", user);
+      },
  },
  getters:{
     getCartProducts: (state) => {
@@ -40,6 +49,9 @@ state:{
       },
     getCaca: (state) => {
         return state.caca;
+      },
+    getUser: (state) => {
+        return state.user;
       },
  }
 });

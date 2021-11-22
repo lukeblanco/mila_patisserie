@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="grid grid-cols-12 mb-8 pb-2 border-b">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Mila Patisserie</router-link>
       <router-link to="/carrito" class="col-start-11 text-right">
         <div v-if="contador > 0" class="inline-flex">
           <img src="../../public/bolsa-de-la-compra-llena.png" class="w-8" />

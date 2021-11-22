@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <h1 class="text-4xl text-center">Productos</h1>
     <div class="mt-1 w-40 m-auto border border-red-500 mb-10" />
     <div class="grid grid-cols-4 gap-5 mb-2">

@@ -107,7 +107,7 @@ export default {
       emailerror: false,
       passworderror: false,
       error: false,
-      admin: "false"
+      admin: false
     };
   },
   methods: {

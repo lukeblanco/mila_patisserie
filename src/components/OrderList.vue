@@ -96,7 +96,7 @@ export default {
       .then((res) => res.json())
       .then((data) => (this.orderList = data))
       .catch((err) => console.log(err.message));
-    console.log(this.orderList, "order list 22222");
+    console.log(this.orderList, "order list");
   },
   methods: {
     viewList: function(products, total) {

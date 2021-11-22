@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-1 w-40 m-auto border border-red-500 mb-10" />
+    <div class="mt-10 w-40 m-auto border border-red-500 mb-10" />
 
     <button
       type="button"
@@ -9,7 +9,7 @@
         align-content-center
         px-6
         py-2
-        mt-4
+        mt-2
         text-white
         bg-red-900
         rounded-lg
@@ -62,11 +62,15 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex justify-center items-center text-sm font-medium text-gray-900">
+                    <div
+                      class="flex justify-center items-center text-sm font-medium text-gray-900"
+                    >
                       {{ user.email }}
                     </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap flex justify-center items-center"
+                  >
                     <button
                       type="button"
                       v-on:click="eliminarUser(user.id)"
@@ -117,6 +121,8 @@ export default {
       if (resultado === true) {
         try {
           await axios.delete(URL_USER + idUsuario);
+          this.users = this.users.filter((user) => user.id != idUsuario);
+          console.log(this.users);
         } catch (error) {
           console.log("ERROR");
         }

@@ -148,12 +148,6 @@ export default {
       }
       this.error = false
     },
-      //var emailRe = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   },
 };
 </script>
-<style scoped>
-.left {
-  text-align: left;
-}
-</style>

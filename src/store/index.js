@@ -8,6 +8,7 @@ export default new Vuex.Store({
     cartProducts: [],
     contador: 0,
     total: 0,
+    user: null
   },
   mutations: {
     agregar: (state, { product, quantity, total }) => {
@@ -53,7 +54,12 @@ export default new Vuex.Store({
       state.contador = 0
       state.total = 0
       console.log(state.cartProducts)
-    }
+    },
+    addUser:(state, user) => {
+      console.log("llego al store")
+      state.user =  user,
+      console.log(state.user,"user state")
+    },
   },
   actions: {
     agregar: ({ commit }, { product, quantity, total }) => {
@@ -65,6 +71,9 @@ export default new Vuex.Store({
     vaciar: ({ commit }) => {
       commit("vaciar");
     },
+    addUser: ({ commit }, user) => {
+      commit("addUser", user);
+    },
   },
   getters: {
     getCartProducts: (state) => {
@@ -75,6 +84,9 @@ export default new Vuex.Store({
     },
     getTotal: (state) => {
       return state.total;
+    },
+    getUser: (state) => {
+      return state.user;
     },
   },
 });

@@ -1,18 +1,17 @@
 <template>
   <div>
     <button
-      type="button"
-      class="btn btn-secondary btn-lg btn-block"
+    class="text-red-700"
       @click="eliminar(product)"
     >
-      Eliminar Producto
+    {{button}}
     </button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['product'],
+  props: ['product','button'],
   methods: {
     eliminar() {
       this.$store.dispatch("eliminar", this.product);
@@ -20,10 +19,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-div {
-  background-color: #9ae6b5;
-  height: 400px;
-}
-</style>

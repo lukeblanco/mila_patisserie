@@ -4,8 +4,10 @@ import Home from '../views/Home.vue'
 import Carrito from '../views/Carrito'
 import Login from '../views/Login'
 import Admin from '../views/Admin'
-import newUser from '../views/NewUser'
-
+import NewUser from '../views/NewUser'
+import ProductDashboard from '../views/ProductDashboard'
+import UserDashboard from '../views/UserDashboard'
+import NewProd from '../views/NewProduct'
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,7 @@ const routes = [
     component: Home
   },
   {
+    
     path: '/carrito',
     name: 'Carrito',
     component: Carrito
@@ -31,9 +34,24 @@ const routes = [
     component: Admin
   },
   {
-    path: '/newuser',
-    name: 'newUser',
-    component: newUser
+    path: '/newUser',
+    name: 'NewUser',
+    component: NewUser
+  },
+  {
+    path: '/userDashboard',
+    name: 'UserDashboard',
+    component: UserDashboard
+  },
+  {
+    path: '/productDashboard',
+    name: 'ProductDashboard',
+    component: ProductDashboard  
+  },
+  {
+    path: '/newProd',
+    name: 'NewProd',
+    component: NewProd  
   }
 ]
 

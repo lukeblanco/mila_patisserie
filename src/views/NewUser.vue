@@ -23,6 +23,9 @@
               "
             />
           </div>
+          <p v-if="erroruser" class="text-red-800 font-bold pt-4">
+            Introduciste un nombre invalido o esta vacio
+          </p>
           <div>
             <label class="block" for="email">Email</label>
             <input
@@ -42,6 +45,9 @@
               "
             />
           </div>
+          <p v-if="emailerror" class="text-red-800 font-bold pt-4">
+            Direccion de correo incorrecta
+          </p>
           <div class="mt-4">
             <label class="block">Password</label>
             <input
@@ -61,6 +67,9 @@
               "
             />
           </div>
+          <p v-if="passworderror" class="text-red-800 font-bold pt-4">
+            La contraseña es invalida
+          </p>
           <div class="flex items-baseline justify-between">
             <button
               type="button"
@@ -91,9 +100,14 @@ export default {
 
   data() {
     return {
+      username: "",
       email: "",
       password: "",
+      erroruser: false,
+      emailerror: false,
+      passworderror: false,
       error: false,
+      admin: "false"
     };
   },
   methods: {
@@ -103,19 +117,38 @@ export default {
         username: this.username,
         email: this.email,
         password: this.password,
+        admin: this.admin
       };
-
-      axios
-        .post(URL_USER, json)
-        .then((data) => {
-          console.log(data);
-          window.alert("Usuario Creado");
-          this.$router.push("/admin");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+       if (!this.username) {
+        this.erroruser = true;
+        this.error = true;
+        console.log("Contraseña/Usuario incorrecto");
+      }
+      if (!this.email) {
+        this.emailerror = true;
+        this.error = true;
+        console.log("Error en email");
+      }
+      if (!this.password) {
+        this.passworderror = true;
+        this.error = true;
+        console.log("Error en contraseña");
+      }
+      if (!this.error) {
+        axios
+          .post(URL_USER, json)
+          .then((data) => {
+            console.log(data);
+            window.alert("Usuario Creado");
+            this.$router.push("/admin");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+      this.error = false
     },
+      //var emailRe = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   },
 };
 </script>

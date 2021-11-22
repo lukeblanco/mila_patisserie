@@ -83,8 +83,9 @@ export default {
     };
   },
   methods: {
-    async login() {
+      login() {
       const URL_USER = "https://61774b8c9c328300175f58a1.mockapi.io/api/Users";
+
       const json = {
         email: this.email,
       };
@@ -92,7 +93,10 @@ export default {
         .get(URL_USER, { params: json })
         .then((response) => {
           if (response.data[0].password == this.password) {
-            this.$router.push({ name: "Home" });
+            if (response.data[0].admin) {
+              this.$router.push({ name: "order-list"});
+            } else this.$router.push({ name: "Home" });
+            this.adduser(response.data[0])
           } else {
             this.error = true;
             console.log("Contraseña/Usuario incorrecto");
@@ -101,6 +105,12 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    async adduser(user) {
+      console.log("LLAMO adduser")
+      console.log(user)
+      this.$store.dispatch("adduser", user);
+      
     },
   },
 };

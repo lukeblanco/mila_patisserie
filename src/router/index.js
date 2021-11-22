@@ -10,6 +10,10 @@ import ProductDashboard from '../views/ProductDashboard'
 import UserDashboard from '../views/UserDashboard'
 import NewProd from '../views/NewProduct'
 
+import OrderList from '../views/OrderList'
+import OrderProductsList from '../views/OrderProductsList'
+import store from '../store'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -37,7 +41,20 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
+    beforeEnter: checkAdminRights,
     component: Admin
+  },
+  {
+    path: '/order-list',
+    name: 'orderList',
+    beforeEnter: checkAdminRights,
+    component: OrderList
+  },
+  {
+    path: '/order-product-list',
+    name: 'orderProductList',
+    beforeEnter: checkAdminRights,
+    component: OrderProductsList
   },
   {
     path: '/newUser',
@@ -47,11 +64,13 @@ const routes = [
   {
     path: '/userDashboard',
     name: 'UserDashboard',
+    beforeEnter: checkAdminRights,
     component: UserDashboard
   },
   {
     path: '/productDashboard',
     name: 'ProductDashboard',
+    beforeEnter: checkAdminRights,
     component: ProductDashboard  
   },
   {
@@ -66,5 +85,15 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+function checkAdminRights(to, from, next) {
+  console.log(store.getters.getUser,"caca")
+  if(!store.getters.getUser?.admin){
+   next('/');
+  }
+  else {
+   next();
+  }
+}
 
 export default router

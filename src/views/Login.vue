@@ -72,6 +72,8 @@
 
 <script>
 import axios from "axios";
+import store from '../store';
+
 export default {
   name: "login",
 
@@ -93,10 +95,10 @@ export default {
         .get(URL_USER, { params: json })
         .then((response) => {
           if (response.data[0].password == this.password) {
-            if (response.data[0].admin) {
-              this.$router.push({ name: "order-list"});
-            } else this.$router.push({ name: "Home" });
             this.adduser(response.data[0])
+            if (response.data[0].admin) {
+              this.$router.push({ name: "orderList"});
+            } else this.$router.push({ name: "Home" });
           } else {
             this.error = true;
             console.log("Contraseña/Usuario incorrecto");
@@ -106,11 +108,15 @@ export default {
           console.log(error);
         });
     },
-    async adduser(user) {
+    adduser: (user) => {
       console.log("LLAMO adduser")
       console.log(user)
-      this.$store.dispatch("adduser", user);
-      
+      const storeUser = {
+        userName : user.username,
+        id: user.id,
+        email: user.email
+      }
+      store.dispatch("addUser", storeUser);
     },
   },
 };

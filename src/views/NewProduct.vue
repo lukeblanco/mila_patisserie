@@ -4,17 +4,24 @@
         <h3 class="text-2xl font-bold text-center">Create Product</h3>
         <form @click:submit.prevent id="NewProd">  
             <div class="mt-4">
+                <p v-if="error.length" class="text-red-400 pt-4 text-xs">
+                    <b>Error:</b>
+                    <ul>
+                        <li v-for="e in error" v-bind:key="e.id">
+                            {{e}} 
+                            </li>
+                        
+                    </ul> 
+                </p>
                 <div>
                     <label class="block" for="name">Nombre</label>
                             <input type="text" name="Name" id="Name" placeholder="Name" v-model="name"
                                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-pink-600">
-                            <p v-if="!this.name" class="text-red-400 pt-4 text-xs">Nombre no puede estar vacío</p>
                 </div>
                 <div>
                     <label class="block" for="description">Descripción</label>
                             <input type="text" name="Description" id="Description" placeholder="Description" v-model="description"
                                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-pink-600">
-                                <p v-if="!this.description" class="text-red-400 pt-4 text-xs">Descripción no puede estar vacía</p>
                 </div>
                 <div>
                 <label class="block" for="price">Precio</label>
@@ -25,7 +32,6 @@
                      <label class="block" for="img">Imagen</label>
                             <input type="text" name="img" id="img" placeholder="Image" v-model="img"
                                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-pink-600">
-                                <p v-if="!this.img" class="text-red-400 pt-4 text-xs">Completar URL imagen</p>
                 </div>
                  <div>
                      <label class="block" for="visible">Tiene Stock?</label>
@@ -55,14 +61,12 @@ import axios from 'axios';
         price: '',
         img: '',
         visible: false,
+        error:[] 
         }
         
     },
     methods:{
         newProd() {
-        const nameIsValid = !this.name
-        const descIsValid = !this.description
-        const imgIsValid = !this.img
         const URL_USER='https://61774b8c9c328300175f58a1.mockapi.io/api/Productos'    
         const json ={ 
         name: this.name,     
@@ -71,19 +75,33 @@ import axios from 'axios';
         img: this.img,
         visible: this.visible
         };
-    
-    
-    if (!nameIsValid || !descIsValid || !imgIsValid) {
-        axios.post(URL_USER,json)
-            .then(data =>{
-                console.log(data);
-                this.$router.push("/productDash");
-            })
-     } else {
-         console.log("Completar los datos vacíos")
-     }
-}
-}}
 
+      if (this.name && this.description && this.img) {
+        axios
+          .post(URL_USER, json)
+          .then((data) => {
+            console.log(data);
+            this.$router.push("/admin");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } 
+      this.error = [];
+      if(!this.name) {
+          this.error.push("Completar nombre")
+      }
+      if(!this.description) {
+          this.error.push("Completar descripción")
+      }
+      if(!this.img) {
+          this.error.push("Completar imágen")
+      }
+      console.warn("errors", this.error)
+      }
+    
+    },
+
+    }
 
 </script>

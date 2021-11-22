@@ -1,11 +1,10 @@
- <template>
+<template>
   <div>
-    <Header />
     <h1 class="text-4xl text-center">Administrador</h1>
     <div class="mt-1 w-40 m-auto border border-red-500 mb-10" />
     <button
       type="button"
-      v-on:click="goToUserDashboard()"
+      @click="showComponent('user')"
       class="
         align-content-center
         px-6
@@ -15,13 +14,31 @@
         bg-red-900
         rounded-lg
         hover:bg-red-900
+        mr-2
       "
     >
       User Dashboard
     </button>
     <button
       type="button"
-      v-on:click="goToProductDashboard()"
+      @click="showComponent('product')"
+      class="
+        align-content-center
+        px-6
+        py-2
+        mt-4
+        text-white
+        bg-red-900
+        rounded-lg
+        hover:bg-red-900
+        mr-2
+      "
+    >
+      Product Dashboard
+    </button>
+    <button
+      type="button"
+      @click="showComponent('list')"
       class="
         align-content-center
         px-6
@@ -33,16 +50,25 @@
         hover:bg-red-900
       "
     >
-      Product Dashboard
+      Lista de ordenes
     </button>
+    <div v-if="productDashboard"><ProductDashboard /></div>
+    <div v-if="userDashboard"><UserDashboard /></div>
+    <div v-if="orderList"><OrderList /></div>
   </div>
 </template>
 <script>
+import ProductDashboard from "../components/ProductDashboard.vue";
+import UserDashboard from "../components/UserDashboard.vue";
+import OrderList from '../components/OrderList.vue'
 export default {
   name: "Admin",
   data() {
     return {
       users: [],
+      userDashboard: false,
+      productDashboard: true,
+      orderList: false,
     };
   },
   mounted() {
@@ -54,13 +80,32 @@ export default {
       .catch((err) => console.log(err.message));
     console.log(this.users);
   },
-  components: {},
+  components: {
+    ProductDashboard,
+    UserDashboard,
+    OrderList
+  },
   methods: {
-    async goToUserDashboard() {
-      this.$router.push("/userDashboard");
-    },
-    async goToProductDashboard() {
-      this.$router.push("/productDashboard");
+    showComponent(component) {
+      switch (component) {
+        case "user":
+          this.orderList = false;
+          this.productDashboard = false;
+          this.userDashboard = true;
+          break;
+        case "product":
+          this.orderList = false;
+          this.productDashboard = true;
+          this.userDashboard = false;
+          break;
+        case "list":
+          this.orderList = true;
+          this.productDashboard = false;
+          this.userDashboard = false;
+          break;
+        default:
+          break;
+      }
     },
   },
 };

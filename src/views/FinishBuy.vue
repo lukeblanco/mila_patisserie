@@ -31,10 +31,10 @@ export default {
   mounted() {
     setTimeout(() => {
       this.spinner = false;
-    }, 5000);
+    }, 3000);
     setTimeout(() => {
       this.$router.push('/') 
-    }, 10000);
+    }, 5000);
   },
 };
 </script>

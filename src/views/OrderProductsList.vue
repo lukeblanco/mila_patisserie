@@ -1,50 +1,50 @@
 <template>
   <div>
     <div v-if="total != 0">
-     <div class="grid grid-cols-12 py-2 border-b border-t">
-     <h2
-            class="font-bold mb-1 col-span-3 flex justify-center items-center border-r"
-          >
-            Nombre
-          </h2>
-          <p
-            class="italich-16 col-span-4 flex justify-center items-center text-center border-r"
-          >
-            Id
-          </p>
-          <p class="flex justify-center items-center text-center border-r">
-           Cantidad
-          </p>
-          <p class="flex justify-center items-center text-center border-r">
-            Precio 
-          </p>
-          <p class="flex justify-center items-center text-center border-r">
-           subTotal
-          </p>
-     </div>
+      <div class="grid grid-cols-12 py-2 border-b border-t">
+        <p
+          class="italich-16 flex justify-center items-center text-center border-r"
+        >
+          Id
+        </p>
+        <h2
+          class="font-bold mb-1 col-span-8 flex justify-center items-center border-r"
+        >
+          Nombre del producto
+        </h2>
+        <p class="col-start-10 flex justify-center items-center text-center border-r">
+          Cantidad
+        </p>
+        <p class="col-start-11 flex justify-center items-center text-center border-r">
+          Precio
+        </p>
+        <p class="col-start-12 flex justify-center items-center text-center border-r">
+          subTotal
+        </p>
+      </div>
       <div v-for="item in products" :key="item.product.name">
         <div class="grid grid-cols-12 py-2 border-b border-t">
-         <!-- <img
+          <!-- <img
             :src="require(`../../public/img-products/${item.product.img}.jpg`)"
             class="mb-1 mx-auto col-span-1"
           /> -->
-          <h2
-            class="font-bold mb-1 col-span-3 flex justify-center items-center border-r"
-          >
-            {{ item.product.name }}
           <p
-            class="italich-16 col-span-4 flex justify-center items-center text-center border-r"
+            class="italich-16 flex justify-center items-center text-center border-r"
           >
             {{ item.product.id }}
           </p>
+          <h2
+            class="font-bold mb-1 col-span-8 flex justify-center items-center border-r"
+          >
+            {{ item.product.name }}
           </h2>
-          <p class="flex justify-center items-center text-center border-r">
+          <p class="col-start-10 flex justify-center items-center text-center border-r">
             {{ item.quantity }}
           </p>
-          <p class="flex justify-center items-center text-center border-r">
+          <p class="col-start-11 flex justify-center items-center text-center border-r">
             ${{ item.product.price }}
           </p>
-          <p class="flex justify-center items-center text-center border-r">
+          <p class="col-start-12 flex justify-center items-center text-center border-r">
             ${{ item.total }}
           </p>
         </div>
@@ -67,19 +67,17 @@
   </div>
 </template>
 
-
 <script>
-
-    export default {
-    data() {
+export default {
+  data() {
     return {
-      products:  [],
+      products: [],
       total: 0,
     };
-     },
-     created(){
-         this.products= this.$route.params.data.products;
-         this.total = this.$route.params.data.total;
-     }
-   };
+  },
+  created() {
+    this.products = this.$route.params.data.products;
+    this.total = this.$route.params.data.total;
+  },
+};
 </script>

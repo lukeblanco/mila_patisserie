@@ -1,4 +1,3 @@
-
 <template>
   <div class="flex items-center justify-center min-h-screen bg-fixed">
     <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg border">
@@ -72,7 +71,7 @@
 
 <script>
 import axios from "axios";
-import store from '../store';
+import store from "../store";
 
 export default {
   name: "login",
@@ -85,7 +84,7 @@ export default {
     };
   },
   methods: {
-      login() {
+    login() {
       const URL_USER = "https://61774b8c9c328300175f58a1.mockapi.io/api/Users";
 
       const json = {
@@ -94,28 +93,32 @@ export default {
       axios
         .get(URL_USER, { params: json })
         .then((response) => {
+          console.log(response.data[0].admin);
           if (response.data[0].password == this.password) {
-            this.adduser(response.data[0])
+            this.adduser(response.data[0]);
             if (response.data[0].admin) {
-              this.$router.push({ name: "orderList"});
-            } else this.$router.push({ name: "Home" });
+              this.$router.push("/admin");
+            } else {
+              this.$router.push("/");
+            }
           } else {
             this.error = true;
             console.log("Contraseña/Usuario incorrecto");
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     },
     adduser: (user) => {
-      console.log("LLAMO adduser")
-      console.log(user)
+      console.log("LLAMO adduser");
+      console.log(user);
       const storeUser = {
-        userName : user.username,
+        userName: user.username,
         id: user.id,
-        email: user.email
-      }
+        email: user.email,
+        admin: user.admin
+      };
       store.dispatch("addUser", storeUser);
     },
   },

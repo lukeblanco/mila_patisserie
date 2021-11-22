@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="xl:max-w-7xl mx-auto mt-5">
-    <Header />
-    <router-link to="/" />
+      <Header />
+    <router-view />
   </div>
 </template>
 <script>
@@ -9,6 +9,9 @@ import Header from "./components/Header.vue";
 
 export default {
   name: "App",
+  data() {
+    return {};
+  },
   components: {
     Header,
   },

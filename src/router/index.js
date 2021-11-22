@@ -6,12 +6,8 @@ import Login from '../views/Login'
 import FinishBuy from '../views/FinishBuy'
 import Admin from '../views/Admin'
 import NewUser from '../views/NewUser'
-import ProductDashboard from '../views/ProductDashboard'
-import UserDashboard from '../views/UserDashboard'
 import NewProd from '../views/NewProduct'
-
-import OrderList from '../views/OrderList'
-import OrderProductsList from '../views/OrderProductsList'
+import OrderProductsList from '../views/OrderProductsList.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -45,12 +41,6 @@ const routes = [
     component: Admin
   },
   {
-    path: '/order-list',
-    name: 'orderList',
-    beforeEnter: checkAdminRights,
-    component: OrderList
-  },
-  {
     path: '/order-product-list',
     name: 'orderProductList',
     beforeEnter: checkAdminRights,
@@ -59,23 +49,13 @@ const routes = [
   {
     path: '/newUser',
     name: 'NewUser',
+    beforeEnter: checkAdminRights,
     component: NewUser
-  },
-  {
-    path: '/userDashboard',
-    name: 'UserDashboard',
-    beforeEnter: checkAdminRights,
-    component: UserDashboard
-  },
-  {
-    path: '/productDashboard',
-    name: 'ProductDashboard',
-    beforeEnter: checkAdminRights,
-    component: ProductDashboard  
   },
   {
     path: '/newProd',
     name: 'NewProd',
+    beforeEnter: checkAdminRights,
     component: NewProd  
   }
 ]
@@ -87,7 +67,7 @@ const router = new VueRouter({
 })
 
 function checkAdminRights(to, from, next) {
-  console.log(store.getters.getUser,"caca")
+  console.log(store.getters.getUser,"user")
   if(!store.getters.getUser?.admin){
    next('/');
   }

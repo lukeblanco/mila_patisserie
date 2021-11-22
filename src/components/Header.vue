@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid grid-cols-12 mb-10">
+    <div class="grid grid-cols-12 mb-8 pb-2 border-b">
       <router-link to="/">Home</router-link>
       <router-link to="/carrito" class="col-start-11 text-right">
         <div v-if="contador > 0" class="inline-flex">
@@ -19,7 +19,6 @@
         <img src="../../public/login.png" class="w-9 -mt-1 mb-1"/>
       </router-link>
     </div>
-    <router-view />
   </div>
 </template>
 
@@ -29,9 +28,6 @@ export default {
   name: "Header",
   computed: {
     ...mapGetters({ contador: "getContador" }),
-  },
-  props: {
-    msg: String,
-  },
+  }
 };
 </script>

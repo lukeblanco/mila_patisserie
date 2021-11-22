@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div v-if="total != 0">
+    <div v-if="total != 0" >
+      <div class="grid grid-cols-12 pb-2 border-t">
+        <p class="mt-2 py-2 col-start-2 col-span-3 text-center font-bold border-r border-l">Nombre del producto</p>
+        <p class="mt-2 py-2 col-span-4 text-center font-bold border-r">Descripcion del producto</p>
+        <p class="mt-2 py-2 text-center font-bold border-r">Cantidad</p>
+        <p class="mt-2 py-2 text-center font-bold border-r">Precio</p>
+        <p class="mt-2 py-2 text-center font-bold border-r">Subtotal</p>
+        <p class="mt-2 py-2 text-center font-bold border-r">Eliminar</p>
+      </div>
       <div v-for="item in items" :key="item.product.name">
         <div class="grid grid-cols-12 py-2 border-b border-t">
           <img
@@ -46,14 +54,9 @@
         </div>
         <button
           @click="buyProducts(items)"
-          class="col-start-11 col-span-2 py-4 my-4 bg-red-300 hover:bg-red-500"
+          class="col-start-11 col-span-2 py-4 my-4 bg-red-300 hover:bg-red-500 text-center text-xl font-bold hover:text-white"
         >
-          <router-link
-            to="/finishBuy"
-            class="text-center text-xl font-bold hover:text-white"
-          >
-            Pagar
-          </router-link>
+          Pagar
         </button>
       </div>
     </div>
@@ -74,6 +77,7 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import DeleteProduct from "../components/deleteProduct.vue";
+import store from "../store";
 export default {
   data() {
     return {
@@ -86,27 +90,38 @@ export default {
   },
   methods: {
     buyProducts: async function(items) {
+      const user = store.getters.getUser
+      if(!user){
+        this.$router.push('/login') 
+        return;
+      }
       const products = this.getProducts(items);
-      try{
-      const purchaseData = {
-        products: products,
-        userId: Math.random()*100
-      }
-      const purchase = await axios.post("https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",purchaseData)
-      console.log(purchase,"purchase");
-      this.$store.dispatch("vaciar");
-      this.wasBuyed = true;
-      }
-      catch(err){
-        console.log(err)
+      try {
+        const purchaseData = {
+          products: products,
+          total: this.total,
+          userId: user.id,
+          username: user.userName
+        };
+        console.log(purchaseData, "purchaseData")
+        const purchase = await axios.post(
+          "https://61774b8c9c328300175f58a1.mockapi.io/api/Orders",
+          purchaseData
+        );
+        console.log(purchase, "purchase");
+        this.$store.dispatch("vaciar");
+        this.wasBuyed = true;
+        this.$router.push('/finishBuy') 
+      } catch (err) {
+        console.log(err);
       }
     },
     getProducts: (items) => {
-      const list = []
+      const list = [];
       items.map((item) => {
-        return list.push(item)
+        return list.push(item);
       });
-      return list
+      return list;
     },
   },
   components: {
